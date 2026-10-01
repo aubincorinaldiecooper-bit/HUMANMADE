@@ -332,6 +332,6 @@ function Toggle({
         <div><strong>{title}</strong><small>{subtitle}</small></div>
       </div>
       <Switch checked={enabled} onChange={() => onClick()} label={title} />
-    </button>
+    </div>
   );
 }
