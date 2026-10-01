@@ -48,14 +48,14 @@ function RailButton({
       data-row
       type="button"
       onClick={onClick}
-      className={`relative z-10 mx-2 flex h-8 items-center rounded-[8px] px-2 text-left
+      className={`sidebar-row relative z-10 mx-2 flex h-8 items-center rounded-[8px] px-2 text-left
         transition-[width,background-color,color,transform] duration-150 active:scale-[0.98]
         ${active ? "bg-hover-2 group-hover/glide:bg-transparent" : ""}`}
     >
       <span className={`flex size-5 shrink-0 items-center justify-center ${active ? "text-ink" : "text-ink-2"}`}>
         {icon}
       </span>
-      <span className={`smartwear-sidebar-copy ml-1.5 min-w-0 flex-1 truncate text-[14px] font-medium ${active ? "text-ink" : "text-ink-2"}`}>
+      <span className={`sidebar-copy ml-1.5 min-w-0 flex-1 truncate text-[14px] font-medium ${active ? "text-ink" : "text-ink-2"}`}>
         {label}
       </span>
     </button>
@@ -74,7 +74,7 @@ export default function SmartwearSidebar({
   return (
     <aside
       aria-label="Smartwear navigation"
-      data-collapsed={collapsed}
+      data-sidebar-collapsed={collapsed}
       className="sticky top-0 hidden h-screen shrink-0 overflow-hidden border-r border-line bg-page sm:flex"
       style={{
         width: collapsed ? SIDEBAR_MOTION.collapsedWidth : SIDEBAR_MOTION.expandedWidth,
@@ -87,34 +87,41 @@ export default function SmartwearSidebar({
         <div className="relative mb-2.5 h-10 shrink-0">
           <div
             aria-hidden={collapsed}
-            className="absolute left-2 top-1 flex h-8 w-[164px] items-center rounded-[8px] px-2"
+            className="sidebar-workspace-control absolute left-2 top-1 flex h-8 w-[164px] items-center rounded-[8px] px-2"
           >
-            <span className="flex size-5 shrink-0 items-center justify-center rounded-[6px] bg-ink text-canvas">
+            <span className="sidebar-logo flex size-5 shrink-0 items-center justify-center rounded-[6px] bg-ink text-canvas">
               <Sparkles size={13} />
             </span>
-            <span className="smartwear-sidebar-copy ml-1.5 min-w-0 flex-1 truncate text-[14px] font-medium text-ink-2">
+            <span className="sidebar-copy ml-1.5 min-w-0 flex-1 truncate text-[14px] font-medium text-ink-2">
               Smartwear Studio
             </span>
           </div>
 
           <button
             type="button"
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-            onClick={() => setCollapsed((value) => !value)}
-            className={`absolute top-1 flex size-8 items-center justify-center rounded-[8px] text-ink-3
-              transition-[left,background-color,color,transform] duration-150 hover:bg-hover-2 hover:text-ink
-              ${collapsed ? "left-2" : "right-2"}`}
+            aria-label="Collapse sidebar"
+            aria-hidden={collapsed}
+            tabIndex={collapsed ? -1 : 0}
+            onClick={() => setCollapsed(true)}
+            className="sidebar-collapse-control absolute right-2 top-1 flex size-8 items-center justify-center rounded-[8px] text-ink-3 transition-[opacity,background-color,color] duration-150 hover:bg-hover-2 hover:text-ink"
           >
-            <ChevronLeft
-              size={18}
-              style={{ transform: collapsed ? "rotate(180deg)" : "rotate(0deg)" }}
-            />
+            <ChevronLeft size={18} />
+          </button>
+          <button
+            type="button"
+            aria-label="Expand sidebar"
+            aria-hidden={!collapsed}
+            tabIndex={collapsed ? 0 : -1}
+            onClick={() => setCollapsed(false)}
+            className="sidebar-expand-control absolute left-2 top-0.5 flex size-9 items-center justify-center rounded-[8px] text-ink-3 transition-[opacity,background-color,color] duration-150 hover:bg-hover-2 hover:text-ink"
+          >
+            <ChevronLeft size={18} className="rotate-180" />
           </button>
         </div>
 
         <GlideMenu
           rowSelector="[data-row]"
-          highlightClassName="inset-x-2 rounded-[7px] bg-hover-2"
+          highlightClassName="sidebar-glide-highlight rounded-[7px] bg-hover-2"
           className="group/glide flex flex-col gap-px"
         >
           {NAV_ITEMS.map((item) => (
@@ -128,7 +135,7 @@ export default function SmartwearSidebar({
           ))}
         </GlideMenu>
 
-        <div className="smartwear-sidebar-copy mt-auto px-3">
+        <div className="sidebar-copy mt-auto px-3">
           <div className="border-t border-line pt-3">
             <StatusPill tone="green" className="max-w-full">
               Prototype ready
