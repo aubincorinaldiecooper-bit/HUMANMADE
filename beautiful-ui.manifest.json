@@ -1,0 +1,34 @@
+{
+  "policy_version": "BEAUTIFUL_UI_HARD_RULE_V1",
+  "source_repository": "https://github.com/slev12397/beautiful-ui",
+  "source_commit": "44a274e598395ab61e7c96c26fda2758780253b7",
+  "approved_icon_library": "lucide-react",
+  "vendored_exact_files": [
+    {
+      "path": "components/atoms/Button.tsx",
+      "git_blob_sha": "af0bfca1b8800b2de590bc5bb35a53890c9fd8e0"
+    },
+    {
+      "path": "components/atoms/SegmentedControl.tsx",
+      "git_blob_sha": "b70a03da339f7cbe5af390f489ba989788775768"
+    },
+    {
+      "path": "components/atoms/Switch.tsx",
+      "git_blob_sha": "3c297df15aebf276b1201be691c321cf96496e85"
+    },
+    {
+      "path": "components/atoms/StatusPill.tsx",
+      "git_blob_sha": "16e0362be41b6127d01687373e43dd4b4c9f1573"
+    },
+    {
+      "path": "components/primitives/GlideMenu.tsx",
+      "git_blob_sha": "2487aea913819a4bbf1a27a9d30ce6b093c658a2"
+    },
+    {
+      "path": "lib/utils.ts",
+      "git_blob_sha": "804bdb7bc89524196a2d955cf506d1636cc52a64"
+    }
+  ],
+  "foundation_file": "app/globals.css",
+  "product_entry": "components/SmartWearStudio.tsx"
+}
