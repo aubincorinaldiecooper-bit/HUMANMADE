@@ -319,7 +319,10 @@ function Toggle({
       className={enabled ? "toggle enabled" : "toggle"}
       role="button"
       tabIndex={0}
-      onClick={onClick}
+      onClick={(event) => {
+        if ((event.target as HTMLElement).closest("button")) return;
+        onClick();
+      }}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
