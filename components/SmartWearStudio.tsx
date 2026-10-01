@@ -54,12 +54,16 @@ export default function SmartWearStudio() {
           <div><strong>smartwear</strong><span>studio</span></div>
         </div>
 
-        <nav className="nav">
-          <button className="nav-item active"><b>＋</b>Create</button>
-          <button className="nav-item"><b>◫</b>Library</button>
-          <button className="nav-item"><b>◇</b>Products</button>
-          <button className="nav-item"><b>↗</b>Orders</button>
-        </nav>
+        <GlideMenu
+          className="nav"
+          rowSelector="[data-nav-row]"
+          highlightClassName="inset-x-0 rounded-[8px] bg-hover-2"
+        >
+          <button data-nav-row className="nav-item active"><Plus className="nav-icon" aria-hidden="true" />Create</button>
+          <button data-nav-row className="nav-item"><Library className="nav-icon" aria-hidden="true" />Library</button>
+          <button data-nav-row className="nav-item"><Shirt className="nav-icon" aria-hidden="true" />Products</button>
+          <button data-nav-row className="nav-item"><PackageCheck className="nav-icon" aria-hidden="true" />Orders</button>
+        </GlideMenu>
 
         <div className="prototype-note">
           <div><i /> Prototype mode</div>
@@ -108,7 +112,7 @@ export default function SmartWearStudio() {
 
             <label className="upload">
               <input type="file" accept="image/*" onChange={uploadArt} />
-              <span>↑</span>
+              <span><ImageUp size={15} strokeWidth={1.8} aria-hidden="true" /></span>
               <strong>{artUrl ? "Artwork added" : "Upload artwork"}</strong>
               <small>PNG, JPG, WEBP · used as the scan target</small>
             </label>
@@ -200,7 +204,7 @@ export default function SmartWearStudio() {
                   accept={mediaKind === "Audio" ? "audio/*" : "video/*"}
                   onChange={uploadMedia}
                 />
-                <span>▶</span>
+                <span><Play size={15} strokeWidth={1.8} aria-hidden="true" /></span>
                 <div>
                   <strong>{mediaUrl ? mediaKind + " attached" : "Attach " + mediaKind.toLowerCase()}</strong>
                   <small>Local preview only in this frontend demo</small>
