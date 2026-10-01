@@ -2,6 +2,11 @@
 
 import { ChangeEvent, ReactNode, useMemo, useState } from "react";
 import { Check, ExternalLink, ImageUp, Library, Nfc, PackageCheck, Play, Plus, Save, ScanLine, Shirt, X } from "lucide-react";
+import { Button } from "@/components/atoms/Button";
+import { SegmentedControl } from "@/components/atoms/SegmentedControl";
+import { StatusPill } from "@/components/atoms/StatusPill";
+import { Switch } from "@/components/atoms/Switch";
+import GlideMenu from "@/components/primitives/GlideMenu";
 
 type Product = "Tee" | "Hoodie" | "Cap" | "Tote";
 type MediaKind = "Video" | "Audio" | "Link";
@@ -69,7 +74,7 @@ export default function SmartWearStudio() {
             <h1>Create interactive merchandise</h1>
           </div>
           <div className="top-actions">
-            <button className="btn ghost"><Save className="button-icon" aria-hidden="true" />Save draft</button>
+            <Button variant="secondary" size="sm"><Save size={14} strokeWidth={1.8} aria-hidden="true" />Save draft</Button>
             <div className="avatar">AC</div>
           </div>
         </header>
@@ -145,9 +150,9 @@ export default function SmartWearStudio() {
               </div>
 
               <div className="preview-meta">
-                <div>
-                  <span className="pill blue">{activationLabel}</span>
-                  <span className="pill">Media ready</span>
+                <div className="flex gap-1.5">
+                  <StatusPill tone="accent">{activationLabel}</StatusPill>
+                  <StatusPill tone="green">Media ready</StatusPill>
                 </div>
                 <p>Tap the hidden NFC tag or scan the artwork to open its media experience.</p>
               </div>
@@ -174,17 +179,12 @@ export default function SmartWearStudio() {
 
             <Rule />
             <label className="label">What opens?</label>
-            <div className="segmented">
-              {mediaKinds.map((kind) => (
-                <button
-                  key={kind}
-                  className={mediaKind === kind ? "selected" : ""}
-                  onClick={() => { setMediaKind(kind); setPublished(false); }}
-                >
-                  {kind}
-                </button>
-              ))}
-            </div>
+            <SegmentedControl
+              options={mediaKinds}
+              value={mediaKind}
+              onChange={(kind) => { setMediaKind(kind); setPublished(false); }}
+              className="w-full"
+            />
 
             {mediaKind === "Link" ? (
               <input
@@ -216,16 +216,24 @@ export default function SmartWearStudio() {
               </div>
             </div>
 
-            <button className="btn primary full" onClick={() => setPreviewOpen(true)}>
+            <Button
+              variant="accent"
+              size="md"
+              className="mt-2 w-full"
+              onClick={() => setPreviewOpen(true)}
+            >
+              <ScanLine size={15} strokeWidth={1.8} aria-hidden="true" />
               Preview customer scan
-            </button>
-            <button
-              className={published ? "btn success full" : "btn full"}
+            </Button>
+            <Button
+              variant={published ? "success" : "secondary"}
+              size="md"
+              className="mt-2 w-full"
               onClick={() => setPublished(true)}
               disabled={!nfc && !visualScan}
             >
-              {published ? <><Check className="button-icon" aria-hidden="true" />Demo piece published</> : "Publish demo piece"}
-            </button>
+              {published ? <><Check size={15} strokeWidth={1.8} aria-hidden="true" />Demo piece published</> : "Publish demo piece"}
+            </Button>
           </section>
         </div>
       </section>
@@ -242,7 +250,7 @@ export default function SmartWearStudio() {
                 <div><b>2</b><span>Piece ID resolves to its experience</span></div>
                 <div><b>3</b><span>{mediaKind} opens instantly</span></div>
               </div>
-              <button className="btn" onClick={() => setPreviewOpen(false)}>Back to studio</button>
+              <Button variant="secondary" size="sm" onClick={() => setPreviewOpen(false)}>Back to studio</Button>
             </div>
 
             <div className="phone">
@@ -280,7 +288,7 @@ export default function SmartWearStudio() {
               </div>
             </div>
 
-            <button className="close" onClick={() => setPreviewOpen(false)} aria-label="Close preview"><X size={16} strokeWidth={1.8} aria-hidden="true" /></button>
+            <Button variant="quiet" size="xs" className="close" onClick={() => setPreviewOpen(false)} aria-label="Close preview"><X size={16} strokeWidth={1.8} aria-hidden="true" /></Button>
           </div>
         </div>
       )}
@@ -307,12 +315,26 @@ function Toggle({
   enabled: boolean; icon: ReactNode; title: string; subtitle: string; onClick: () => void;
 }) {
   return (
-    <button className={enabled ? "toggle enabled" : "toggle"} onClick={onClick}>
+    <div
+      className={enabled ? "toggle enabled" : "toggle"}
+      role="button"
+      tabIndex={0}
+      onClick={(event) => {
+        if ((event.target as HTMLElement).closest("button")) return;
+        onClick();
+      }}
+      onKeyDown={(event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onClick();
+        }
+      }}
+    >
       <div>
         <span className="toggle-icon">{icon}</span>
         <div><strong>{title}</strong><small>{subtitle}</small></div>
       </div>
-      <span className="switch"><i /></span>
-    </button>
+      <Switch checked={enabled} onChange={() => onClick()} label={title} />
+    </div>
   );
 }
