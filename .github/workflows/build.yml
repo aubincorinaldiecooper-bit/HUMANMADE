@@ -1,7 +1,7 @@
 name: Build smartwear demo
 on:
   push:
-    branches: [main, smartwear-demo, beautiful-ui-migration]
+    branches: [main, smartwear-demo, beautiful-ui-migration, harden-beautiful-ui-rule]
   workflow_dispatch:
 permissions:
   contents: read
