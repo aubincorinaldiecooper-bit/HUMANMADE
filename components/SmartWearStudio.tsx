@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useMemo, useState } from "react";
+import { ChangeEvent, ReactNode, useMemo, useState } from "react";\nimport { Check, ExternalLink, ImageUp, Library, Nfc, PackageCheck, Play, Plus, Save, ScanLine, Shirt, X } from "lucide-react";
 
 type Product = "Tee" | "Hoodie" | "Cap" | "Tote";
 type MediaKind = "Video" | "Audio" | "Link";
@@ -68,7 +68,7 @@ export default function SmartWearStudio() {
             <h1>Create interactive merchandise</h1>
           </div>
           <div className="top-actions">
-            <button className="btn ghost">Save draft</button>
+            <button className="btn ghost"><Save className="button-icon" aria-hidden="true" />Save draft</button>
             <div className="avatar">AC</div>
           </div>
         </header>
@@ -140,7 +140,7 @@ export default function SmartWearStudio() {
                   )}
                   {visualScan && <div className="scan-corners" />}
                 </div>
-                {nfc && <div className="nfc">))) NFC</div>}
+                {nfc && <div className="nfc"><Nfc size={11} strokeWidth={1.8} aria-hidden="true" /> NFC</div>}
               </div>
 
               <div className="preview-meta">
@@ -158,14 +158,14 @@ export default function SmartWearStudio() {
 
             <Toggle
               enabled={nfc}
-              icon="N"
+              icon={<Nfc size={15} strokeWidth={1.8} aria-hidden="true" />}
               title="NFC tap"
               subtitle="Phone touches the hidden tag"
               onClick={() => { setNfc(!nfc); setPublished(false); }}
             />
             <Toggle
               enabled={visualScan}
-              icon="⌗"
+              icon={<ScanLine size={15} strokeWidth={1.8} aria-hidden="true" />}
               title="Visual scan"
               subtitle="Camera recognizes the artwork"
               onClick={() => { setVisualScan(!visualScan); setPublished(false); }}
@@ -223,7 +223,7 @@ export default function SmartWearStudio() {
               onClick={() => setPublished(true)}
               disabled={!nfc && !visualScan}
             >
-              {published ? "Demo piece published ✓" : "Publish demo piece"}
+              {published ? <><Check className="button-icon" aria-hidden="true" />Demo piece published</> : "Publish demo piece"}
             </button>
           </section>
         </div>
@@ -259,14 +259,14 @@ export default function SmartWearStudio() {
                     </div>
                   ) : mediaUrl && mediaKind === "Link" ? (
                     <div className="media-placeholder">
-                      <div className="external">↗</div>
+                      <div className="external"><ExternalLink size={22} strokeWidth={1.7} aria-hidden="true" /></div>
                       <strong>Interactive destination</strong>
                       <small>{mediaUrl}</small>
                     </div>
                   ) : (
                     <div className="media-placeholder">
                       <div className="album">SW</div>
-                      <div className="play">▶</div>
+                      <div className="play"><Play size={16} strokeWidth={1.8} aria-hidden="true" /></div>
                       <small>YOUR MEDIA PLAYS HERE</small>
                     </div>
                   )}
@@ -279,7 +279,7 @@ export default function SmartWearStudio() {
               </div>
             </div>
 
-            <button className="close" onClick={() => setPreviewOpen(false)}>×</button>
+            <button className="close" onClick={() => setPreviewOpen(false)} aria-label="Close preview"><X size={16} strokeWidth={1.8} aria-hidden="true" /></button>
           </div>
         </div>
       )}
@@ -303,7 +303,7 @@ function Rule() {
 function Toggle({
   enabled, icon, title, subtitle, onClick,
 }: {
-  enabled: boolean; icon: string; title: string; subtitle: string; onClick: () => void;
+  enabled: boolean; icon: ReactNode; title: string; subtitle: string; onClick: () => void;
 }) {
   return (
     <button className={enabled ? "toggle enabled" : "toggle"} onClick={onClick}>
