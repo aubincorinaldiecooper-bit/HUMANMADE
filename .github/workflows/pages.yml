@@ -1,5 +1,7 @@
 name: Deploy smartwear demo to GitHub Pages
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
@@ -16,6 +18,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
       - run: npm install
       - run: npm run build
       - uses: actions/upload-pages-artifact@v4
