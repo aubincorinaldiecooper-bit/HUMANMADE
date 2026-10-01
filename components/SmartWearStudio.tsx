@@ -1,6 +1,7 @@
 "use client";
 
-import { ChangeEvent, ReactNode, useMemo, useState } from "react";\nimport { Check, ExternalLink, ImageUp, Library, Nfc, PackageCheck, Play, Plus, Save, ScanLine, Shirt, X } from "lucide-react";
+import { ChangeEvent, ReactNode, useMemo, useState } from "react";
+import { Check, ExternalLink, ImageUp, Library, Nfc, PackageCheck, Play, Plus, Save, ScanLine, Shirt, X } from "lucide-react";
 
 type Product = "Tee" | "Hoodie" | "Cap" | "Tote";
 type MediaKind = "Video" | "Audio" | "Link";
