@@ -19,6 +19,30 @@ Already cloned without YuE? Run `git submodule update --init`.
 - `app/page.tsx`: the landing page (records, fonts, colours).
 - `music/`: YuE and notes for generating the instrumentals.
 
+## Deploy on Coolify
+
+HUMANMADE runs as its own Coolify project, separate from any other project on the server.
+It shares no services, databases or environment variables with them.
+
+1. **Projects → + Add**, name it `HUMANMADE`.
+2. In that project: **+ New → Public Repository**, URL
+   `https://github.com/aubincorinaldiecooper-bit/HUMANMADE`, branch `main`.
+   (Connect it through a GitHub App source instead if you want Coolify to redeploy on every push.)
+3. **Build Pack: Dockerfile.** The repo's `Dockerfile` builds the site. Set **Ports Exposes** to `3000`.
+4. **Domains:** enter the site's address, for example `https://humanmade.example.com`.
+   Coolify issues the HTTPS certificate.
+5. **Deploy.**
+
+No environment variables are needed yet. When the database arrives, add a new Postgres
+resource **inside the HUMANMADE project** and pass its `DATABASE_URL` to the app.
+
+Test the image locally with Docker:
+
+```bash
+docker build -t humanmade .
+docker run --rm -p 3000:3000 humanmade
+```
+
 ## Disc photos
 
 The page uses Unsplash photos. To swap in generated ones, run
