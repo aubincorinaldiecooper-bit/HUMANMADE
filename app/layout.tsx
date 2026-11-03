@@ -1,19 +1,19 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata, Viewport } from "next"
+import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "Smartwear Studio",
-  description: "Design interactive merchandise with NFC and scan-to-play media.",
-};
+  title: "side/b · Records",
+  description: "A catalogue of records, one disc at a time.",
+}
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  themeColor: "#f1efeb",
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="h-full w-full">{children}</body>
     </html>
-  );
+  )
 }
