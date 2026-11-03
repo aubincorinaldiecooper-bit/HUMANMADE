@@ -1,0 +1,4 @@
+[submodule "music/YuE"]
+	path = music/YuE
+	url = https://github.com/multimodal-art-projection/YuE
+	ignore = untracked
